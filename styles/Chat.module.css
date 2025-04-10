@@ -1,0 +1,528 @@
+/* START OF FILE Home.module.css (Revised for Fixed Input) */
+
+/* General Layout */
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100vh; /* Force full height for reliable fixed positioning context */
+    overflow: hidden; /* Prevent body scroll */
+    background-color: var(--bg-primary);
+  }
+  
+  .topnav {
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0.75rem;
+    align-items: center;
+    color: var(--text-accent);
+    flex-shrink: 0; /* Keep nav height fixed */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    position: relative; /* Ensure it establishes a stacking context */
+    z-index: 20; /* Keep nav above everything */
+  }
+  
+  /* --- Main Layout Area --- */
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Takes space between nav and bottom (or fixed input) */
+    overflow: hidden; /* Important: prevent this container from scrolling */
+    padding: 0;
+    width: 100%;
+  }
+  
+  /* --- Initial State --- */
+  .mainInitial {
+    justify-content: center;
+    padding-bottom: 2rem;
+    overflow-y: auto; /* Allow scrolling if initial content + input overflows */
+  }
+  
+  .cloudInitial {
+    width: 75vw;
+    max-width: 800px;
+    height: auto;
+    max-height: 65vh;
+    background: var(--bg-primary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .cloudInitial .messagelist {
+      overflow-y: auto;
+      height: auto;
+      padding: 0.5rem 0;
+  }
+  
+  .centerInitial {
+    position: relative;
+    width: 75vw;
+    max-width: 800px;
+  }
+  
+  .centerInitial .cloudform {
+     width: 100%;
+  }
+  
+  .centerInitial .textarea {
+     /* height: 50px; Use min-height */
+     overflow-y: hidden;
+  }
+  
+  /* --- Active Chat State (Major Changes Here) --- */
+  .mainActive {
+    /* No longer needs justify-content: flex-end */
+    /* Padding bottom is handled by the fixed element's presence */
+    padding-bottom: 80px; /* Add estimated padding for fixed input area height - ADJUST AS NEEDED */
+                                  /* This prevents content from hiding behind fixed input */
+    overflow: hidden; /* Crucial: Ensure main doesn't scroll */
+    height: 100%; /* Ensure it tries to fill space */
+  }
+  
+  .cloudActive {
+    width: 100%;
+    height: 100%; /* Fill the available space in .mainActive (which has padding-bottom) */
+    background: var(--bg-primary);
+    border: none;
+    border-radius: 0;
+    max-width: 100%;
+    max-height: none;
+    overflow: hidden; /* Let the inner message list scroll */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cloudActive .messagelist {
+     flex-grow: 1; /* Take available space */
+     overflow-y: auto; /* THIS is the scrollable message list */
+     padding: 1rem;
+     border-radius: 0;
+     height: auto; /* Let flex-grow handle height */
+  }
+  
+  .centerActive {
+    /* --- Fixed Positioning --- */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Ensure it's above the scrolling content */
+    /* --- End Fixed --- */
+  
+    padding: 1rem 0 1rem 0; /* Keep existing padding */
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+    /* flex-shrink: 0; No longer needed for flex layout */
+    max-width: 100%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  /* Keep centering the form *inside* the fixed bar */
+  .centerActive .cloudform {
+    width: 75vw;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .centerActive .textarea {
+     max-height: 200px;
+     overflow-y: auto;
+  }
+  
+  
+  /* --- Other Styles (Mostly Unchanged) --- */
+  
+  .navlogo, .navlinks a {
+    font-weight: 500;
+    color: var(--text-accent);
+    transition: color 0.3s ease; /* Add transition */
+  }
+  
+  .navlogo {
+    font-size: 1.25rem;
+    margin-left: 1rem;
+  }
+  
+  .navlinks {
+    width: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  
+  .themeToggleButton {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .themeToggleButton:hover {
+    color: var(--text-accent);
+    background-color: var(--bg-secondary);
+  }
+  
+  .link {
+    font-weight: 500;
+  }
+  
+  .cloudform {
+    position: relative;
+  }
+  
+  .textarea {
+    position: relative;
+    resize: none;
+    font-size: 1.0rem;
+    padding: 0.75rem 3.5rem 0.75rem 1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.4;
+    min-height: 50px;
+  }
+  
+  .textarea:focus {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 5px color-mix(in srgb, var(--accent-2) 50%, transparent);
+  }
+  
+  .textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .textarea::placeholder {
+    color: var(--text-secondary);
+  }
+  
+  .generatebutton {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    color: var(--text-accent);
+    background: none;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .loadingwheel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .svgicon {
+    width: 1.0em;
+    height: 1.0em;
+    fill: currentColor;
+  }
+  
+  .generatebutton:hover:not(:disabled) {
+    background: var(--bg-secondary);
+  }
+  
+  .generatebutton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: none;
+  }
+  
+  .messagelist {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+  
+  .apimessage, .usermessage {
+      display: flex;
+      padding: 1rem 1.5rem;
+      margin: 0.5rem 0;
+      color: var(--text-primary);
+      animation: fadein 0.3s ease-in-out;
+      border-radius: 0.3rem;
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .cloudActive .apimessage, .cloudActive .usermessage {
+     margin-left: 1rem;
+     margin-right: 1rem;
+  }
+  
+  .apimessage {
+    background: var(--bg-secondary);
+  }
+  
+  .usermessage {
+    background: var(--bg-primary);
+  }
+  
+  .loadingDots span {
+    opacity: 0;
+    animation: blink 1s infinite;
+    margin-left: 1px;
+    font-size: 1.2em;
+    line-height: 1;
+    color: var(--text-secondary);
+  }
+  .loadingDots span:nth-child(2) { animation-delay: 0.2s; }
+  .loadingDots span:nth-child(3) { animation-delay: 0.4s; }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  .markdownanswer {
+    line-height: 1.8;
+    color: var(--text-primary);
+    flex-grow: 1;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .markdownanswer a:hover {
+    opacity: 0.8;
+  }
+  
+  .markdownanswer a {
+    color: var(--accent-1);
+    font-weight: 500;
+  }
+  
+  .markdownanswer code {
+    color: var(--accent-4);
+    background-color: color-mix(in srgb, var(--bg-tertiary) 80%, transparent);
+    padding: 0.1em 0.3em;
+    border-radius: 0.2rem;
+    font-size: 0.9em;
+    white-space: pre-wrap !important;
+    word-break: break-all;
+  }
+  
+  .markdownanswer pre {
+    overflow-x: auto;
+    background-color: var(--bg-tertiary);
+    padding: 0.75rem;
+    border-radius: 0.3rem;
+    margin: 0.5em 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .markdownanswer pre code {
+    display: block;
+    white-space: pre-wrap !important;
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.9em;
+    color: var(--accent-4);
+    word-break: break-word;
+  }
+  
+  .markdownanswer ol, .markdownanswer ul {
+    margin: 1rem 0 1rem 2rem;
+  }
+  
+  .boticon, .usericon {
+    margin-right: 1rem;
+    border-radius: 0.1rem;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  
+  .markdownanswer h1, .markdownanswer h2, .markdownanswer h3 {
+    font-size: inherit;
+    font-weight: 600;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    color: var(--text-accent);
+  }
+  
+  .footer {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-align: center;
+    padding-top: 0.75rem;
+    width: 100%;
+  }
+  
+  .footer p {
+      margin: 0;
+  }
+  
+  .footer a {
+    font-weight: 500;
+    color: var(--accent-2);
+  }
+  
+  .footer a:hover {
+    opacity: 0.8;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-overlay);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modalContent {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  .closeButton:hover {
+    color: var(--text-primary);
+  }
+  
+  .helpButton {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-accent);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .helpButton:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-1);
+  }
+  
+  /* --- Responsive Design Adjustments --- */
+  @media (max-width: 768px) {
+    .cloudInitial,
+    .centerInitial,
+    .centerActive .cloudform { /* Center form inside fixed bar */
+       width: 90vw;
+    }
+     .navlinks {
+       gap: 0.8rem;
+       margin-right: 0.5rem;
+     }
+     .navlogo {
+       margin-left: 0.5rem;
+     }
+     .helpButton {
+       padding: 0.4rem 0.8rem;
+     }
+     .topnav {
+       padding: 0.75rem;
+     }
+     .apimessage, .usermessage {
+       padding: 0.75rem 1rem;
+     }
+     .cloudActive .apimessage, .cloudActive .usermessage {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+     }
+     .boticon, .usericon {
+       margin-right: 0.75rem;
+     }
+     .textarea {
+        font-size: 0.95rem;
+        min-height: 45px;
+     }
+     /* Reduce padding-bottom for fixed input on smaller screens if needed */
+     .mainActive {
+        padding-bottom: 70px; /* Slightly less space */
+     }
+  }
+  
+  @media (max-width: 600px) {
+    .cloudInitial {
+        max-height: 70vh;
+    }
+    .markdownanswer code, .markdownanswer pre code {
+      font-size: 0.85em;
+    }
+    .footer {
+        font-size: 0.7rem;
+    }
+     /* .navlinks a[href="/about"] { display: none; } */
+     .navlinks { gap: 0.5rem; }
+     .navlogo { width: auto; }
+  
+     .cloudActive .apimessage, .cloudActive .usermessage {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+     }
+     .apimessage, .usermessage {
+       padding: 0.6rem 0.8rem;
+     }
+     /* Further reduce padding-bottom if needed */
+      .mainActive {
+        padding-bottom: 65px;
+     }
+  }
+  /* END OF FILE Home.module.css */
