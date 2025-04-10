@@ -1,24 +1,21 @@
-## GPT-4 Chatbot UI
+## "A Friend in Need", 
 
-Build your own GPT-4 chatbot frontend with this open source Next.js template! Simply add your OpenAI API key as `OPENAI_API_KEY` and you're good to go!
+### A chatbot demonstrating Retrieval-Augmented Generation (RAG) using Ollama, Langchain, python in the Backend, Next.JS in the frontend.  
 
-Don't have early access to GPT-4? Replace `gpt-4` with `gpt-3.5-turbo` in `pages/api/chat.js`.
+This is the code for the final project ENGI981B taken under the supervision of Dr. Weimin Huang for the Winter 2024-2025 Semester at Memorial University of Newfoundland.
 
-## Getting Started
+Made by:
+- Rifat Bin Masud (#202387267)
+- Sayed Fazli Rabby (#202386191)
 
-Hit the run button to start the development server.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on `/api/chat`. This endpoint can be edited in `pages/api/chat.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-# NextJS-GPT4
+  Backend Code are seperated in the backend folder. Usual Next.JS based frontend project starter.
+  To run:
+  1. git clone the project.
+  2. do ``` npm install ```
+  3. go to backend directory and run ``` pip install -r requirements.txt ```
+  4. make sure Ollama is installed and running in the background.
+  5. This code is tested with Llama 3.2 (3Billion) as its LLM and mxbai-embed large for the embeddings
+  6. run the ingest.py file with source data in the Dataset folder. this feeds the vector database with the contextual documents
+  7. then run the app.py for the backend flask server.
+  8. finally in the frontend directory run the Next.JS with ``` npm run dev ```
+  9. The chatbot should be accessible at https://localhost:3000 
